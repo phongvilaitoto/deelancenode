@@ -14,6 +14,9 @@ const passportFacebook = passport.authenticate('facebook', { session: false})
 
 // Router
 
+router.route('/test')
+    .get((UserController.test))
+
 // SignUp
 router.route('/signup')
     .post(UserController.signUp) // SignUp with generate Hash in function  save()

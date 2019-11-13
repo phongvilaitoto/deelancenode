@@ -12,7 +12,11 @@ signToken = user => {
 }
 
 module.exports = {
-
+    // test
+    test: async (req, res, next) => {
+      const user = await User.find()
+        res.status(200).json({ user })
+    },
     // SignUp
     signUp: async (req, res, next) => {
         const { username, email, password } = req.body // request from form user
