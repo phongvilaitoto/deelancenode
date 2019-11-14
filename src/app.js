@@ -28,12 +28,6 @@ app.get('*', (req, res) => {
     res.render('index.ejs')
 })
 
-// app.post('/test', (req, res) => {
-//     const { principal ,repayment } = req.body
-//     const sum = (parseInt(repayment) + parseInt(principal))
-//     res.json(sum)
-// })
-
 // Export app
 module.exports = app
 
