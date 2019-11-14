@@ -6,6 +6,7 @@ const Message = require('../models/Message')
 module.exports = {
     orders: async (req, res, next) => {
         const { authId } = req.query
+
         const orders = await Order.find({
                 $or: [ { employerId: authId }, { freelancerId: authId } ],
             })

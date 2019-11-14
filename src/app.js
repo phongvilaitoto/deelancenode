@@ -20,7 +20,6 @@ app.use('/category', require('./routes/api/category')) // category router
 app.use('/message', require('./routes/api/message')) // message router
 app.use('/order', require('./routes/api/order')) // order router
 
-
 // Web page router
 app.use('/home', require('./routes/api/home')) // Home page
 
@@ -28,6 +27,12 @@ app.use('/home', require('./routes/api/home')) // Home page
 app.get('*', (req, res) => {
     res.render('index.ejs')
 })
+
+// app.post('/test', (req, res) => {
+//     const { principal ,repayment } = req.body
+//     const sum = (parseInt(repayment) + parseInt(principal))
+//     res.json(sum)
+// })
 
 // Export app
 module.exports = app
