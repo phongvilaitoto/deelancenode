@@ -39,7 +39,6 @@ passport.use('google', new GoogleTokenStrategy({
             google: {
                 oauthId: profile.id,
             },
-            username: `g${Date.now()}`,
             email: profile.emails[0].value,
             type: 'employer'
         })
@@ -65,7 +64,6 @@ passport.use('facebook', new FacebookTokenStrategy({
             facebook: {
                 oauthId: profile.id,
             },
-            username: `f${Date.now()}`,
             email: profile.emails[0].value,
             type: 'employer'
         })

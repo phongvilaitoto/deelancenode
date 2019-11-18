@@ -11,10 +11,6 @@ const portfolioSchema = new Schema({
     description: {
         type: String
     },
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    },
     approved : {
         type: Boolean,
         default: false
@@ -22,13 +18,19 @@ const portfolioSchema = new Schema({
     // Relation
     author: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'users',
+        required: true
     },
     categoryId: {
         type: Schema.Types.ObjectId,
-        ref: 'categories'
-    }
-}, { versionKey: false })
+        ref: 'categories',
+        required: true
+    },
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'reviews'
+    }]
+},{  autoIndex: true, timestamps: true , versionKey: false })
 
 const Portfolio = mongoose.model('portfolios', portfolioSchema)
 

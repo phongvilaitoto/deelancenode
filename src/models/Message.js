@@ -27,7 +27,7 @@ const messageSchema = new Schema({
         type: String,
         enum: ['quotation']
     }
-}, { versionKey: false })
+}, {  autoIndex: true, timestamps: true , versionKey: false })
 
 const Message = mongoose.model('messages', messageSchema)
 

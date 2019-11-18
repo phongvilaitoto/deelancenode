@@ -8,7 +8,7 @@ const categorySchema = new Schema({
     image: {
         type: String
     }
-}, { versionKey: false })
+}, {  autoIndex: true, timestamps: true , versionKey: false })
 
 const Category = mongoose.model('categories', categorySchema)
 

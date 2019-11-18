@@ -1,6 +1,7 @@
 const mongoose = require('mongoose') // require mongoose from mongodb.js
 const Schema = mongoose.Schema // require Schema from mongodb.js
 const bcrypt = require('bcryptjs') // require bcrypt
+const shortid = require('shortid') // require shortid
 
 const userSchema = new Schema({ // use new Schema to protect User Model
     method: {
@@ -16,7 +17,7 @@ const userSchema = new Schema({ // use new Schema to protect User Model
     // schema all
     username: {
         type: String,
-        lowercase: true,
+        default: shortid.generate,
         unique: true
     },
     email: {
@@ -70,7 +71,7 @@ const userSchema = new Schema({ // use new Schema to protect User Model
             type: String
         },
     }
-}, { versionKey: false }) // version key to inject
+}, {  autoIndex: true, timestamps: true , versionKey: false }) // version key to inject
 
 userSchema.pre('save', async function (next) { // Pre save() + hash
      try {

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const shortid = require('shortid')
 
 const orderSchema = new Schema({
     employerId: {
@@ -17,14 +18,15 @@ const orderSchema = new Schema({
         ref: 'portfolios',
         required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now()
+    reviewId: {
+        type: Schema.Types.ObjectId,
+        ref: 'reviews'
     },
     // Quotation
     quotation: {
         orderId: {
             type: String,
+            default: shortid.generate,
             unique: true
         },
         information: {
@@ -50,17 +52,17 @@ const orderSchema = new Schema({
             type: String,
             enum: [ 'wait for payment' ,'in progress', 'pending', 'successful', 'unsuccessful'],
         },
+        createdAt: {
+            type: Date
+        }
         // ee
         // complete: {
         //     type: Boolean,
         //     default: false
         // },
-        createdAt: {
-            type: Date
-        }
-    }
+    },
     // Generate Key Id
-}, { versionKey: false })
+}, {  autoIndex: true, timestamps: true , versionKey: false })
 
 const Order = mongoose.model('orders', orderSchema)
 

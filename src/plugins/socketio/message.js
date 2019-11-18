@@ -20,5 +20,10 @@ module.exports = (io) => {
             io.emit(`update-quotation`)
         })
 
+        // create review
+        socket.on('review', () => {
+            io.emit('review')
+        })
+
     })
 }
