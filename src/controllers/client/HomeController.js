@@ -13,7 +13,7 @@ module.exports = {
             const length = Math.ceil(port / perPage)
             const portfolios = await Portfolio.find({})
                 .populate(['author', 'categoryId', 'reviews'])
-                .sort({ createdAt: -1 })
+                .sort('-createdAt')
                 .skip((Page * PerPage) - perPage )
                 .limit(PerPage)
             res.status(200).json({ portfolios, length })
