@@ -37,9 +37,9 @@ module.exports = {
                                 if(err)  return res.json({ error: err })
                             })
                     }
-
-                res.writeHead(200)
-                res.json({ success: 'updated profile successfully' })
+                res.status(200).render('index.ejs', (err, html) => {
+                    res.send(html)
+                })
             } catch (e) {
                 throw new Error(e)
             }
