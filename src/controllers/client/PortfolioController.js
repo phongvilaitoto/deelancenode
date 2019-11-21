@@ -49,9 +49,9 @@ module.exports = {
             const images = req.files.map(i =>  `uploads/portfolio/${ i.filename }` ) // maping files in array
             const newPortfolio = new Portfolio({ images , title, description, categoryId }) // create a new portfolio
             const user = await User.findById(userId) // Find userId
-            await newPortfolio.author = user // join
+             newPortfolio.author = user // join
             const category = await Category.findById(categoryId)
-            await newPortfolio.categoryId = category // join
+             newPortfolio.categoryId = category // join
             await newPortfolio.save() // save portfolio with author
             res.status(201).json({ success: 'Post portfolio successfully' }) // return response
         } catch (err) {
