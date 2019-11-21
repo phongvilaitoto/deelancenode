@@ -37,7 +37,18 @@ module.exports = {
                                 if(err)  return res.json({ error: err })
                             })
                     }
-                    res.status(200).json({ success: 'updated profile successfully' })
+                if (response.headersSent) {
+                    console.log('Headers sent!')
+                } else {
+                    console.log('Headers have not been sent.')
+                }
+                res.writeHead(200);
+                if (response.headersSent) {
+                    console.log('Headers sent!')
+                } else {
+                    console.log('Headers have not been sent.')
+                }
+                  //  res.status(200).json({ success: 'updated profile successfully' })
             } catch (e) {
                 throw new Error(e)
             }
