@@ -49,11 +49,11 @@ module.exports = {
             const images = req.files.map(i =>  `uploads/portfolio/${ i.filename }` ) // maping files in array
             const newPortfolio = new Portfolio({ images , title, description, categoryId }) // create a new portfolio
             const user = await User.findById(userId) // Find userId
-            newPortfolio.author = user // join
+            await newPortfolio.author = user // join
             const category = await Category.findById(categoryId)
-            newPortfolio.categoryId = category // join
-           const portfolio = await newPortfolio.save() // save portfolio with author
-            res.status(201).json({ portfolio }) // return response
+            await newPortfolio.categoryId = category // join
+            await newPortfolio.save() // save portfolio with author
+            res.status(201).json({ success: 'Post portfolio successfully' }) // return response
         } catch (err) {
             throw new Error(err)
         }
@@ -83,14 +83,22 @@ module.exports = {
                 const currentImages = images.map(i=>i) // maping current images
                 const concatImages = currentImages.concat(files) // concat array images
                 await Portfolio.updateOne({ _id },
-                    { $set: { title, description, images: concatImages, categoryId } } )
+                    { $set: { title, description, images: concatImages, categoryId } }, (err) => {
+                        if (err) {
+                            return res.send()
+                        }
+                    } )
             }else if(!images) { // if current images is null
                 await Portfolio.updateOne({ _id },
-                    { $set: { title, description, images: files, categoryId } } )
+                    { $set: { title, description, images: files, categoryId } }, (err) => {
+                        if (err) {
+                            return res.send()
+                        }
+                    } )
             }
             if(imgPath) { // if imgPath has splice
                 const deeleteImage = imgPath.map(i=>`public/${i}`)
-                deeleteImage.forEach(image => { // forEach is loop for Array && for is loop for object
+                await deeleteImage.forEach(image => { // forEach is loop for Array && for is loop for object
                     fs.exists(image, (exists) => { // if file exists in public
                         if(exists) {
                             fs.unlinkSync(image) // delete this file
