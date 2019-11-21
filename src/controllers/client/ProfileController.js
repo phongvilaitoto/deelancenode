@@ -17,7 +17,7 @@ module.exports = {
                             .gravity('Center')
                             .noProfile()
                             .write(req.file.path ,(err) => { // write a new file
-                                if(err) return res.json({ error: err })
+                                if(err) return
                             })
                         // Update Profile
                         const image = 'uploads/profile/' + req.file.filename // save new path to mongodb
@@ -37,7 +37,7 @@ module.exports = {
                                 if(err)  return res.json({ error: err })
                             })
                     }
-                res.status(201).send('update profile successfully')
+                res.status(200).send('update profile successfully')
             } catch (e) {
                 throw new Error(e)
             }
