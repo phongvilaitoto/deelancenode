@@ -77,7 +77,7 @@ module.exports = {
                     .gravity('Center')
                     .noProfile()
                     .write(file ,(err) => { // write a new file
-                        if(err) return res.json({ error: err })
+                        if(err) return
                     })
             })
             if(images) { // if has current images
