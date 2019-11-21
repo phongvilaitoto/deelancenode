@@ -80,7 +80,7 @@ passport.use( new LocalStrategy({ // Local Strategy to check email and password 
     passwordField: 'password'
 }, async (email, password, done) => {
     try {
-        const user = await User.findOne({ $or: [{ username: email.toLowerCase() }, { email }], $set: { username: username.toLowerCase() } })  // Find the
+        const user = await User.findOne({ $or: [{ username: email }, { email }]})  // Find the
         // user
         // given the email' +
         if (!user) {  // If not, handle it
