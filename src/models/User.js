@@ -18,7 +18,6 @@ const userSchema = new Schema({ // use new Schema to protect User Model
     username: {
         type: String,
         default: shortid.generate,
-        lowercase: true,
         unique: true
     },
     email: {
