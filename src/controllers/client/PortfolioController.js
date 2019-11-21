@@ -106,7 +106,8 @@ module.exports = {
                     })
                 })
             }
-            res.status(200).json({ success: 'Portfolio has been updated' })
+            console.log(res.headersSent)
+            //res.status(200).json({ success: 'Portfolio has been updated' })
         } catch (err) {
             throw new Error(err)
         }
