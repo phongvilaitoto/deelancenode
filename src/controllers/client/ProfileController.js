@@ -38,7 +38,7 @@ module.exports = {
                             })
                     }
                 res.status(200).render('index.ejs', (err, html) => {
-                    res.send(html)
+                    res.json(html)
                 })
             } catch (e) {
                 throw new Error(e)

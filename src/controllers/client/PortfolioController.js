@@ -53,7 +53,9 @@ module.exports = {
             const category = await Category.findById(categoryId)
              newPortfolio.categoryId = category // join
             await newPortfolio.save() // save portfolio with author
-            res.status(201).json({ success: 'Post portfolio successfully' }) // return response
+            res.status(200).render('index.ejs', (err, html) => {
+                res.json(html)
+            })
         } catch (err) {
             throw new Error(err)
         }
@@ -106,8 +108,9 @@ module.exports = {
                     })
                 })
             }
-            console.log(res.headersSent)
-            //res.status(200).json({ success: 'Portfolio has been updated' })
+            res.status(200).render('index.ejs', (err, html) => {
+                res.json(html)
+            })
         } catch (err) {
             throw new Error(err)
         }
