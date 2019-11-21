@@ -85,14 +85,14 @@ module.exports = {
                 await Portfolio.updateOne({ _id },
                     { $set: { title, description, images: concatImages, categoryId } }, (err) => {
                         if (err) {
-                            return res.send()
+                            return
                         }
                     } )
             }else if(!images) { // if current images is null
                 await Portfolio.updateOne({ _id },
                     { $set: { title, description, images: files, categoryId } }, (err) => {
                         if (err) {
-                            return res.send()
+                            return
                         }
                     } )
             }
