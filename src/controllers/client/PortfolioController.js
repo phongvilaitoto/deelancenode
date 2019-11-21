@@ -41,7 +41,7 @@ module.exports = {
                     .gravity('Center')
                     .noProfile()
                     .write(file ,(err) => { // write a new file
-                        if(err) return res.json({ error: err })
+                        if(err) return
                     })
             })
             // Create new
@@ -53,8 +53,8 @@ module.exports = {
             const category = await Category.findById(categoryId)
              newPortfolio.categoryId = category // join
             await newPortfolio.save() // save portfolio with author
-            res.status(200).render('index.ejs', (err, html) => {
-                res.json(html)
+            res.status(201).render('index.ejs', (err, html) => {
+                res.send(html)
             })
         } catch (err) {
             throw new Error(err)
