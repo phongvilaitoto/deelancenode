@@ -47,7 +47,8 @@ module.exports = {
             // Create new
             const { userId, title, description, categoryId } = req.body // const object from request
             const images = req.files.map(i =>  `uploads/portfolio/${ i.filename }` ) // maping files in array
-            const newPortfolio = new Portfolio({ images , title, description, categoryId }) // create a new portfolio
+            const newPortfolio = new Portfolio({ images , title, description, categoryId }) // create a new
+            // portfolio
             const user = await User.findById(userId) // Find userId
              newPortfolio.author = user // join
             const category = await Category.findById(categoryId)
