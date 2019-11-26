@@ -25,7 +25,7 @@ module.exports = {
                     .gravity('Center')
                     .noProfile()
                     .write(req.file.path ,(err) => { // write a new file
-                        if(err) return res.json({ error: err })
+                        if(err) return
                     })
                 // Update Profile
                 const image = 'uploads/message/' + req.file.filename // save new path to mongodb
@@ -39,7 +39,7 @@ module.exports = {
                 const order = await Order.findById(orderId)
                 messages.orderId = order
                 await messages.save()
-                res.status(200).json({ messages })
+                res.status(201).json({ messages })
             } else {
                 const messages = new Message({
                     message,
