@@ -10,7 +10,7 @@ module.exports = {
     getall: async (req, res, next) => {
         try {
             const { userId } = req.query
-            const portfolios = await Portfolio.find({ author: userId }).populate('categoryId')
+            const portfolios = await Portfolio.find({ author: userId }).populate(['categoryId', 'author', 'reviews'])
             res.status(200).json({ portfolios })
         } catch (err) {
             throw new Error(err)
