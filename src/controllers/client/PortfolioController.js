@@ -47,7 +47,13 @@ module.exports = {
             // Create new
             const { userId, title, description, categoryId } = req.body // const object from request
             const images = req.files.map(i =>  `uploads/portfolio/${ i.filename }` ) // maping files in array
-            const newPortfolio = new Portfolio({ images , title, description, categoryId }) // create a new
+            const newPortfolio = new Portfolio({
+                images,
+                title,
+                description,
+                categoryId,
+                status: 'wait for approval'
+            }) // create a new
             // portfolio
             const user = await User.findById(userId) // Find userId
              newPortfolio.author = user // join
@@ -84,18 +90,22 @@ module.exports = {
                 const currentImages = images.map(i=>i) // maping current images
                 const concatImages = currentImages.concat(files) // concat array images
                 await Portfolio.updateOne({ _id },
-                    { $set: { title, description, images: concatImages, categoryId } }, (err) => {
-                        if (err) {
-                            return
-                        }
-                    } )
+                    { $set: { title,
+                            description,
+                            images: concatImages,
+                            categoryId,
+                            status: 'wait for approval'
+                    }
+                    })
             }else if(!images) { // if current images is null
                 await Portfolio.updateOne({ _id },
-                    { $set: { title, description, images: files, categoryId } }, (err) => {
-                        if (err) {
-                            return
-                        }
-                    } )
+                    { $set: { title,
+                            description,
+                            images: files,
+                            categoryId,
+                            status: 'wait for approval'
+                    }
+                    })
             }
             if(imgPath) { // if imgPath has splice
                 const deeleteImage = imgPath.map(i=>`public/${i}`)
@@ -108,8 +118,8 @@ module.exports = {
                 })
             }
             res.status(200).json({ success: 'post portfolio successfully' })
-        } catch (err) {
-            throw new Error(err)
+        } catch (e) {
+            throw new Error(e)
         }
     },
 
@@ -128,10 +138,10 @@ module.exports = {
                     })
                 })
             }
-            await portfolio.delete() // delete portfolio
+            await portfolio.remove() // delete portfolio
             res.status(200).json({ success: 'Deelete portfolio successfully' }) // return response
-        } catch (err) {
-            throw new Error(err)
+        } catch (e) {
+            throw new Error(e)
         }
     }
 

@@ -37,7 +37,8 @@ router.route('/oauth/facebook')
 router.route('/unique')
     .post(UserController.unique)
 
-// Get current user
+
+// isAuth
 router.route('/currentuser')
     .get(passportJWT, UserController.currentUser)
 

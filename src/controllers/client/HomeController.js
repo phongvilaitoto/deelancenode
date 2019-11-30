@@ -1,5 +1,6 @@
 const Portfolio = require('../../models/Portfolio')
 const User = require('../../models/User')
+const status = 'approved'
 
 module.exports = {
 
@@ -9,9 +10,9 @@ module.exports = {
             const { page, perPage } = req.query
             const PerPage = perPage ? parseInt(perPage) : 10
             const Page = page ? parseInt(page): 1
-            const port = await Portfolio.find({}).map(i=>i.length)
+            const port = await Portfolio.find({ status: 'approved' }).map(i=>i.length)
             const length = Math.ceil(port / perPage)
-            const portfolios = await Portfolio.find({})
+            const portfolios = await Portfolio.find({ status })
                 .populate(['author', 'categoryId', 'reviews'])
                 .sort('-createdAt')
                 .skip((Page * PerPage) - perPage )
@@ -27,9 +28,14 @@ module.exports = {
            const { page, perPage, categoryId } = req.query
            const PerPage = perPage ? parseInt(perPage) : 10
            const Page = page ? parseInt(page): 1
-           const portCate = await Portfolio.find({ categoryId }).map(i=>i.length)
+           const portCate = await Portfolio.find({
+               $and: [
+                   { categoryId } ,
+                   { status }
+                   ]
+           }).map(i=>i.length)
            const length = Math.ceil(portCate / perPage)
-           const portfolios = await Portfolio.find({ categoryId })
+           const portfolios = await Portfolio.find({ $and: [{ categoryId } , { status: 'approved' }] })
                .populate(['author', 'categoryId', 'reviews'])
                .sort({ createdAt: -1 })
                .skip((Page * perPage) - PerPage)
@@ -42,18 +48,13 @@ module.exports = {
     searchPortfolio: async (req, res, next) => {
       try {
           const { search } = req.query
-          let regex = new RegExp(search,'i');
-          await Portfolio.aggregate([
-              // Project the concatenated full name along with the original doc
-              {$project: {title: {$concat: ['$title', ' ', '$description']}, doc: '$$ROOT'}},
-              {$match: {title: regex}}
-          ], function(err, docs) {
-              // Extract the original doc from each item
-              const portfolios = docs.map((item) => {
-                  return item.doc
-              })
-              res.status(200).json({ portfolios })
-          })
+          const portfolios = await Portfolio.find({
+             $and: [
+                 { title : { $regex : search, $options : 'i' } },
+                 { status }
+             ]
+          }).populate(['author', 'categoryId', 'reviews'])
+          res.status(200).json({ portfolios })
       }catch (e) {
           throw e
       }
@@ -62,7 +63,7 @@ module.exports = {
     detail: async (req, res, next) => {
       try {
           const { _id } = req.query
-          const portfolio = await Portfolio.findOne({ _id })
+          const portfolio = await Portfolio.findOne({ _id, status: 'approved' })
               .populate(['author', 'categoryId', 'reviews'])
           res.status(200).json({ portfolio })
       }catch (e) {

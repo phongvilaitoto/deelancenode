@@ -4,6 +4,7 @@ const Portfolio = require('../../models/Portfolio')
 const Message = require('../../models/Message')
 
 module.exports = {
+    // for employer and freelancer
     orders: async (req, res, next) => {
         const { authId } = req.query
 
@@ -20,6 +21,15 @@ module.exports = {
         const order = await Order.findOne({ _id })
             .populate(['employerId', 'freelancerId', 'portfolioId', 'reviewId', 'userId'])
         res.status(200).json({ order })
+    },
+
+    // for freelancer only
+    ordersTask: async (req, res, next) => {
+        const { authId } = req.query
+        const orders = await Order.find({ freelancerId: authId })
+            .populate(['employerId', 'freelancerId', 'portfolioId'])
+            .sort('-createdAt')
+        res.status(200).json({ orders })
     },
 
     createOrder: async (req, res, next) => {
@@ -41,6 +51,8 @@ module.exports = {
             })
             const orderM = await Order.findById(order._id)
             messageModel.orderId = orderM
+            const portfolioM = await Portfolio.findById(portfolioId)
+            messageModel.portfolioId = portfolioM
             await messageModel.save()
             res.status(201).json({ orderId: order._id })
         }catch (e) {
@@ -50,7 +62,7 @@ module.exports = {
     updateQuotation: async (req, res, next) => {
         try {
             const { _id, information, price, dayWork, receive, optional } = req.body
-            const { from, to, orderId, type } = req.body
+            const { from, to, orderId, type, portfolioId } = req.body
             await Order.updateOne({ _id }, {
                 $set: {
                     'quotation.information': information,
@@ -70,6 +82,8 @@ module.exports = {
             })
             const order = await Order.findById(orderId)
             messageModel.orderId = order
+            const portfolio = await Portfolio.findById(portfolioId)
+            messageModel.portfolioId = portfolio
             await messageModel.save()
             res.status(200).json({ success: 'quotation has been updated' })
         } catch (e) {

@@ -17,6 +17,12 @@ const messageSchema = new Schema({
         ref: 'orders',
         required: true,
     },
+    portfolioId: {
+      type: Schema.Types.ObjectId,
+      ref: 'portfolios',
+      required: true
+    },
+
     message: {
         type: String
     },

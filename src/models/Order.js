@@ -64,6 +64,11 @@ const orderSchema = new Schema({
     // Generate Key Id
 }, {  autoIndex: true, timestamps: true , versionKey: false })
 
+orderSchema.pre('remove', async function (next) {
+    next()
+})
+
+
 const Order = mongoose.model('orders', orderSchema)
 
 module.exports = Order

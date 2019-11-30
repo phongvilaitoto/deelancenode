@@ -1,6 +1,7 @@
 const User = require('../../models/User')
 const Message = require('../../models/Message')
 const Order = require('../../models/Order')
+const Portfolio = require('../../models/Portfolio')
 const gm = require('gm').subClass({ imageMagick: true })
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
 
     send: async (req, res, next) => {
         try {
-            const { message, from, to, orderId } = req.body
+            const { message, from, to, orderId, portfolioId } = req.body
             if (req.file) { // if has file image
                 /// Reisize
                 const filePath = req.file.path
@@ -38,6 +39,8 @@ module.exports = {
                 })
                 const order = await Order.findById(orderId)
                 messages.orderId = order
+                const portfolio = await Portfolio.findById(portfolioId)
+                messages.portfolioId = portfolio
                 await messages.save()
                 res.status(201).json({ messages })
             } else {
@@ -48,6 +51,8 @@ module.exports = {
                 })
                 const order = await Order.findById(orderId)
                 messages.orderId = order
+                const portfolio = await Portfolio.findById(portfolioId)
+                messages.portfolioId = portfolio
                 await messages.save()
                 res.status(200).json({ messages })
             }

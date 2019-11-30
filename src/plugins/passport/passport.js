@@ -21,7 +21,7 @@ passport.use( new JwtStrategy({ // Use Strategy to find token from a user ( chec
         } catch (err) {
             done(err, false)
         }
-    }))
+}))
 
 // GOOGLE OAUTH STRATEGY
 passport.use('google', new GoogleTokenStrategy({
