@@ -12,9 +12,8 @@ router.route('/getall')
 router.route('/getone')
     .get(CategoryController.getOne)
 
-router.route('/filtercategory')
+router.route('/filter-category')
     .get(CategoryController.filterCategory)
-
 
 
 
