@@ -1,4 +1,5 @@
 const Category = require('../../models/Category')
+const Portfolio = require('../../models/Portfolio')
 const gm = require('gm').subClass({ imageMagick: true })
 const fs = require('fs')
 
@@ -13,6 +14,13 @@ module.exports = {
         const { _id } = req.query
         const category = await Category.findOne({ _id })
         res.status(200).json({ category })
+    },
+
+    filterCategory: async (req, res, next) => {
+        const { categoryId } = req.query
+        const portfolios = await Portfolio.find({ categoryId })
+            .populate(['categoryId', 'reviews', 'author'])
+        res.status(200).json({ portfolios })
     },
 
 

@@ -12,6 +12,12 @@ router.route('/getall')
 router.route('/getone')
     .get(CategoryController.getOne)
 
+router.route('/filter-category')
+    .get(CategoryController.filterCategory)
+
+
+
+
 router.route('/post')
     .post(upload.single('image'), CategoryController.post)
 
