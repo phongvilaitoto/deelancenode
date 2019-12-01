@@ -20,9 +20,9 @@ module.exports = {
         const { categoryId } = req.query
         const portfolios = await Portfolio.find({ categoryId })
             .populate(['categoryId', 'reviews', 'author'])
+            .sort('-createdAt')
         res.status(200).json({ portfolios })
     },
-
 
     post: async (req, res, next) => {
         try{
