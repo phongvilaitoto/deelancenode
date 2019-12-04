@@ -4,8 +4,6 @@ const Review = require('../../models/Review')
 const gm = require('gm').subClass({ imageMagick: true })
 const fs = require('fs')
 
-const sort = require('fast-sort')
-
 module.exports = {
     getAll: async (req, res, next) => {
         const categories = await Category.find({})
