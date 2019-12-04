@@ -42,11 +42,26 @@ module.exports = {
                 throw new Error(e)
             }
     },
+    freelanceRegister: async (req, res, next) => {
+      try {
+          const { authId, nickname, name, lastname, phone, village, district, province, skill, workHistory } = req.body
+          await User.updateOne({ _id: authId },
+              {
+                  $set: { nickname, name, lastname, phone, village, district, province, skill, workHistory,
+                  acceptFreelancer: 'wait'
+                  }
+              })
+          res.status(200).json({ success: 'freelance register successfully' })
+      } catch (e) {
+          throw new Error(e)
+      }
+    },
     ready: async (req, res, next) => {
         try {
             const { _id ,ready } = req.body
             await User.updateOne({ _id },
-                {$set: { acceptOrder: ready }}, (err) => {
+                {
+                    $set: { acceptOrder: ready }}, (err) => {
                     if(err)  return res.json({ error: err })
                 })
             res.status(200).json({ success: 'updated ready successfully' })

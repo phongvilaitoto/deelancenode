@@ -4,8 +4,8 @@ module.exports = {
     // Passport Google & facebook ( ClientID & ClientSecret )
     OAUTH: {
         GOOGLE: {
-            CLIENT_ID: '752508685901-6u41sefa9grgflhdfrfp47kjc6et2bhi.apps.googleusercontent.com' ,
-            CLIENT_SECRET: '-iTwuOBNYk6IHRQc8BNSXj__'
+            CLIENT_ID: '313373959085-h0l73q11d239a7vjicjtrqrn0h9igirl.apps.googleusercontent.com' ,
+            CLIENT_SECRET: 'gGkDoIO1S8_e01k_9HmL24xW'
         },
         FACEBOOK: {
             CLIENT_ID: '520207398815072',

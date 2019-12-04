@@ -363,6 +363,11 @@ express@^4.17.1:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
+fast-sort@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/fast-sort/-/fast-sort-1.6.0.tgz#68c6d94ce309ead19d562014159902c80c68d0a0"
+  integrity sha512-sjV6dxWdHs14cef7GzJgCWSOagw57cUBYMey+seWeOsU0HgMf2g4Wkdflv65X/8E4UWptUcq9EZ3YqSXUnUy9Q==
+
 finalhandler@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.1.2.tgz#b7e7d000ffd11938d0fdb053506f6ebabe9f587d"

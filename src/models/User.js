@@ -26,6 +26,12 @@ const userSchema = new Schema({ // use new Schema to protect User Model
         lowercase: true,
         unique: true
     },
+    image: {
+        type: String
+    },
+    nickname: {
+      type: String
+    },
     name: {
         type: String
     },
@@ -35,24 +41,28 @@ const userSchema = new Schema({ // use new Schema to protect User Model
     phone: {
         type: String
     },
-    facebookAccount: {
-        type: String
+    village: {
+       type: String
     },
-    whatsapp: {
+    district: {
+       type: String
+    },
+    province: {
         type: String
     },
     skill: {
         type: String
     },
-    history: {
-        type: String
-    },
-    image: {
+    workHistory: {
         type: String
     },
     acceptOrder: {
         type: Boolean,
         default: false
+    },
+    acceptFreelancer: {
+      type: String,
+      enum: ['wait', 'edit', 'cancel', 'freelancer']
     },
     // local auth schema
     local: {

@@ -13,6 +13,8 @@ const isFreelancer =  passport.authenticate('freelancer', { session: false }) //
 router.route('/update')
     .put(upload.single('image')  ,ProfileController.update)
 
+router.route('/freelance-register')
+    .put(ProfileController.freelanceRegister)
 // Only Freelancer
 router.route('/ready')
     .put([ isFreelancer ], ProfileController.ready)

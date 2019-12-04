@@ -15,8 +15,6 @@ router.route('/getone')
 router.route('/filter-category')
     .get(CategoryController.filterCategory)
 
-
-
 router.route('/post')
     .post(upload.single('image'), CategoryController.post)
 
