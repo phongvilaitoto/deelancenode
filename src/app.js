@@ -7,10 +7,11 @@ const cors = require('cors') // require cors to connect vue.js
 require('./plugins/mongodb/mongodb') // connect to db
 
 // Middlewares
+
 app.use(cors()) // use cors
 app.use(jsonParser) // use jsonpParser to read json
 app.use(urlencodedParser) // use urlendcoded
-app.use(express.static('public')) // use public image
+app.use(express.static('public',  { dotfiles: 'allow' })) // use public image
 
 // Middleware
 const passport = require('passport')
